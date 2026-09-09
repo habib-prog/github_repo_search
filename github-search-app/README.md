@@ -9,7 +9,7 @@ A monorepo with a React frontend and an Express backend for searching GitHub rep
 - Node.js with Express
 - GitHub Repository Search API
 
-## Project Structure
+## Project structure
 
 ```text
 github-search-app/
