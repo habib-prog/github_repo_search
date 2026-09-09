@@ -35,7 +35,7 @@ function App() {
         {error && <p className="mt-4 text-sm text-black">{error}</p>}
 
         {result && !isLoading && result.items.length === 0 && (
-          <p className="mt-8 text-gray-600">No repositories found.</p>
+          <p className="mt-8 text-gray-600">No repo found at such name</p>
         )}
 
         {result && result.items.length > 0 && (

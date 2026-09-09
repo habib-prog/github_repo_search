@@ -8,6 +8,7 @@ export function useRepositorySearch() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const abortControllerRef = useRef(null);
+  const resultCacheRef = useRef(new Map());
 
   useEffect(() => {
     const normalizedQuery = query.trim();
@@ -26,6 +27,16 @@ export function useRepositorySearch() {
     }
 
     const timeoutId = setTimeout(async () => {
+      const cacheKey = `${normalizedQuery}:${page}`;
+      const cachedResult = resultCacheRef.current.get(cacheKey);
+
+      if (cachedResult) {
+        setResult(cachedResult);
+        setError("");
+        setIsLoading(false);
+        return;
+      }
+
       // Cancel the previous search so it cannot overwrite newer results.
       abortControllerRef.current?.abort();
       const controller = new AbortController();
@@ -42,6 +53,7 @@ export function useRepositorySearch() {
         );
 
         if (!controller.signal.aborted) {
+          resultCacheRef.current.set(cacheKey, data);
           setResult(data);
         }
       } catch (requestError) {

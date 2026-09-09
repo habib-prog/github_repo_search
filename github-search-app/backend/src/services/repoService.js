@@ -45,7 +45,7 @@ export const searchRepositories = async (query, page = 1, perPage = 12) => {
   }
 
   const params = new URLSearchParams({
-    q: normalizedQuery,
+    q: `${normalizedQuery} in:name`,
     page: String(page),
     per_page: String(perPage),
     sort: "stars",
@@ -56,11 +56,17 @@ export const searchRepositories = async (query, page = 1, perPage = 12) => {
     headers: {
       Accept: "application/vnd.github+json",
       "User-Agent": "github-search-app",
+      ...(process.env.GITHUB_TOKEN
+        ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+        : {}),
     },
   });
 
   if (!response.ok) {
-    const error = new Error("GitHub repository search failed.");
+    const errorData = await response.json().catch(() => ({}));
+    const error = new Error(
+      errorData.message || "GitHub repository search failed.",
+    );
     error.statusCode = response.status === 403 ? 429 : 502;
     throw error;
   }
