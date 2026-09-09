@@ -16,15 +16,15 @@ function App() {
   } = useRepositorySearch();
 
   return (
-    <main className="min-h-screen bg-white px-6 py-16 text-black">
+    <main className="min-h-screen overflow-x-hidden bg-white px-4 py-10 text-black sm:px-6 sm:py-16">
       <div className="mx-auto max-w-5xl">
         <p className="text-sm font-medium uppercase tracking-[0.3em] text-black">
           GitHub Search
         </p>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight sm:text-6xl">
+        <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
           Find repositories faster.
         </h1>
-        <p className="mt-6 max-w-xl text-lg text-gray-600">
+        <p className="mt-5 max-w-xl text-base leading-7 text-gray-600 sm:mt-6 sm:text-lg">
           Search GitHub repositories from one focused workspace.
         </p>
 
@@ -39,11 +39,11 @@ function App() {
         )}
 
         {result && result.items.length > 0 && (
-          <section className="mt-12">
-            <p className="mb-4 text-sm text-gray-600">
+          <section className="mt-10 sm:mt-12">
+            <p className="mb-4 text-sm leading-6 text-gray-600">
               {result.totalCount.toLocaleString()} repositories found
             </p>
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2">
               {result.items.map((repository) => (
                 <RepositoryCard key={repository.id} repository={repository} />
               ))}
