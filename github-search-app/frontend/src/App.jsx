@@ -30,6 +30,7 @@ function App() {
 
         <SearchInput onChange={handleQueryChange} value={query} />
 
+        {/* These states keep the user informed while a search is in progress. */}
         {isLoading && <p className="mt-4 text-sm text-gray-600">Loading...</p>}
         {error && <p className="mt-4 text-sm text-black">{error}</p>}
 

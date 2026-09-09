@@ -13,6 +13,7 @@ export function useRepositorySearch() {
     const normalizedQuery = query.trim();
 
     if (normalizedQuery.length < 2) {
+      // Do not search until the user has entered a meaningful query.
       abortControllerRef.current?.abort();
       setResult(null);
       setError(
@@ -25,6 +26,7 @@ export function useRepositorySearch() {
     }
 
     const timeoutId = setTimeout(async () => {
+      // Cancel the previous search so it cannot overwrite newer results.
       abortControllerRef.current?.abort();
       const controller = new AbortController();
       abortControllerRef.current = controller;
@@ -52,7 +54,7 @@ export function useRepositorySearch() {
           setIsLoading(false);
         }
       }
-    }, 500);
+    }, 500); // Wait until typing has stopped before calling the API.
 
     return () => clearTimeout(timeoutId);
   }, [query, page]);

@@ -50,10 +50,12 @@ repository-root/
 ## Setup Instructions
 
 ```bash
-cd github-search-app
+cd /Users/apple/Desktop/github_repo_search/github-search-app
 npm install
 cp .env.example .env
 ```
+
+> Important: Run all `npm` commands from the `github-search-app` directory. The parent directory (`github_repo_search`) does not contain a `package.json`.
 
 `CACHE_TTL_SECONDS` controls how long repository responses stay in the backend in-memory cache. `GITHUB_SEARCH_URL` configures the upstream GitHub search endpoint.
 
@@ -62,6 +64,7 @@ cp .env.example .env
 Run both applications together from the application root:
 
 ```bash
+cd /Users/apple/Desktop/github_repo_search/github-search-app
 npm run dev
 ```
 
@@ -70,14 +73,18 @@ Or run them separately in two terminals:
 Backend:
 
 ```bash
+cd /Users/apple/Desktop/github_repo_search/github-search-app
 npm run dev:backend
 ```
 
 Frontend:
 
 ```bash
+cd /Users/apple/Desktop/github_repo_search/github-search-app
 npm run dev:frontend
 ```
+
+Check the current directory with `pwd`. It should end with `/github-search-app`.
 
 The applications will be available at:
 

@@ -24,6 +24,7 @@ app.get("/api/health", (_request, response) => {
 
 app.use("/api/repos", repoRoutes);
 
+// Keep API errors in one consistent JSON format for the frontend.
 app.use((error, _request, response, _next) => {
   const statusCode = error.statusCode || 500;
   response.status(statusCode).json({

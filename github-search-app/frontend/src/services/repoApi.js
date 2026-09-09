@@ -4,6 +4,7 @@ export async function searchRepositories(query, page = 1, signal) {
     page: String(page),
     perPage: "12",
   });
+  // The Vite proxy forwards this request to the backend during development.
   const response = await fetch(`/api/repos?${params}`, { signal });
 
   if (!response.ok) {

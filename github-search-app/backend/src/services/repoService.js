@@ -35,6 +35,7 @@ export const searchRepositories = async (query, page = 1, perPage = 12) => {
   const cachedResult = cache.get(cacheKey);
   const cacheTtl = getCacheTtl();
 
+  // Return a fresh cached response and avoid an unnecessary GitHub request.
   if (cachedResult && Date.now() - cachedResult.createdAt < cacheTtl) {
     return cachedResult.data;
   }
@@ -66,6 +67,7 @@ export const searchRepositories = async (query, page = 1, perPage = 12) => {
 
   const data = await response.json();
 
+  // Send only the fields the frontend needs instead of the full GitHub payload.
   const result = {
     totalCount: data.total_count,
     items: data.items.map((repository) => ({
